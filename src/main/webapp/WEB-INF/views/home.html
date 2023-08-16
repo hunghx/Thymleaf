@@ -1,0 +1,50 @@
+<!DOCTYPE html >
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">0
+    <title>Title</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<th:block th:insert="layout/header.html" ></th:block>
+<h1>Chào mừng bạn đến với trang chủ</h1>
+<!--Hiển thị văn bản-->
+<p th:utext="|Chào mừng ${name} đến với trang chủ|"></p>
+<th:block th:object="${person}">
+    <li th:text="*{id}"></li>
+    <li th:text="*{name}"></li>
+    <li th:text="${person.sex}?'nam':'nữ'"></li>
+</th:block>
+
+<!-- hiển thị thông điệp-->
+<span th:text="#{username}"></span>
+
+<!-- chèn 1 đoạn fragment kèm biến cục bộ-->
+<th:block th:insert="layout/index::table (person=${person})"></th:block>
+<!-- vòng lặp-->
+<th:block th:each="number,loop : ${list}">
+    <li th:text="${loop}"></li>
+</th:block>
+
+<!--diều kiện-->
+<th:block th:unless="${person.sex}">
+    <span>Giới tính nữ</span>
+</th:block>
+<th:block th:if="${person.sex}">
+    <span>Giới tính nam</span>
+</th:block>
+
+<th:block th:switch="${person.sex}">
+    <li th:case="true">
+        <span>Giới tính nam</span>
+    </li>
+    <li th:case="false">
+        <span>Giới tính nữ</span>
+    </li>
+    <li th:case="*">
+        <span>Không xác định</span>
+    </li>
+</th:block>
+
+</body>
+</html>
